@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartfy - Chatbot IoT Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-buZBk3R4RiM9+X5u2YQYfQWcRB0zmiNOQ+M6U3vZEbOoxGj+Faz+Kp4YQLF7W8MNdE+V4wpIp3cXyXgzpZK6nA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    
+
+    <style>
+        body {
+            background-color: #0c0926;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #9c6dff 0%, #c288ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .purple-gradient {
+            background: linear-gradient(135deg, #5516c4 0%, #9466ff 100%);
+        }
+        .dashboard-box {
+            background: rgba(20, 10, 50, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+        }
+        .card {
+            background: rgba(30, 15, 60, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6d6dc6 0%, #ad160b 100%);
+        }
+        /* 1) Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+body { font-family: 'Inter', sans-serif; }
+
+/* 2) Reusable buttons */
+.btn-primary {
+  background: linear-gradient(90deg, #f43131, #5616c480);
+  color: #fff;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover { opacity: 0.9; }
+
+.btn-hero {
+  background:linear-gradient(90deg, #f43131, #5616c480);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(230,57,70,0.3);
+  transition: background 0.2s;
+}
+.btn-hero:hover { background: #d62839; }
+
+/* 3) Pill */
+.pill {
+  background: linear-gradient(90deg, #5516c4, #9c6dff);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.pill .dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: #e63946;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+/*=============== HEADER ===============*/
+header {
+      position:relative; z-index:2;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1rem 2rem;
+      border-bottom:1px solid rgba(115,55,183,0.2);
+      background:rgba(17,31,77,0.6);
+    }
+    .logo {
+      display:flex; align-items:center;
+    }
+    .logo img {
+      height:2rem; margin-right:0.5rem;
+    }
+    nav a {
+      margin-left:2rem;
+      color:#ccc;
+      transition:color .2s;
+    }
+    nav a:hover { color:#fff; }
+
+    /*=============== BUTTONS ===============*/
+    .btn-primary {
+      background:linear-gradient(90deg,#f43131,#5616c480);
+      color:#fff;
+      padding:.5rem 1rem;
+      border:none;
+      border-radius:.375rem;
+      cursor:pointer;
+      transition:opacity .2s;
+    }
+    .btn-primary:hover { opacity:.9; }
+
+    .btn-hero {
+      background:linear-gradient(90deg,#f43131,#5616c480);
+      padding:.75rem 1.5rem;
+      border-radius:.5rem;
+      color:#fff;
+      font-weight:600;
+      box-shadow:0 8px 20px rgba(230,57,70,.3);
+      transition:background .2s, transform .2s;
+    }
+    .btn-hero:hover {
+      background:#d62839;
+      transform:translateY(-2px);
+    }
+
+/* 4) Hero text glow */
+.hero-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #fff;
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.8),
+    0 0 20px rgba(255, 255, 255, 0);
+}
+@media (min-width: 768px) {
+  .hero-title { font-size: 3.75rem; }
+}
+
+.hero-subtitle {
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.13);
+}
+
+/* 5) Robot glow behind */
+.robot-container {
+  position: relative;
+}
+.robot-container::before {
+  content: "";
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle at center,
+    rgba(230,57,70,0.5) 0%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 0;
+}
+
+/* 6) Dashboard “glass” card */
+.dashboard-box {
+  background: rgba(30,16,76,0.8);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* 7) Logos hover */
+.trusted-by .logos img {
+  transition: opacity 0.2s;
+}
+
+/* Base & reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container */
+.container {
+  width: min(100% - 2rem, 1200px);
+  margin: 0 auto;
+  padding: 4rem 0;
+}
+
+/* Section Titles */
+.section-title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 2.25rem;
+  }
+}
+
+/* Shared Card Styles */
+.card {
+  background: #1e104c;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* First‐row Dashboard Cards */
+.cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.dashboard-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.window-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+.dot.red    { background: #ffffff; }
+.dot.yellow { background: #9e1515; }
+.dot.green  { background: #9f4ff4; }
+
+.dashboard-card h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.card-desc {
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+.metric {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #9c6dff, #5516c4);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.metric-label {
+  color: #888;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Second‐row Feature Cards */
+.cards-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+.feature-card .feature-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.feature-card h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.feature-card p {
+  font-size: 0.875rem;
+  color: #ccc;
+}
+/* Enhance feature-card with smooth hover */
+.feature-card {
+  /* existing styles… */
+  background: #1e104c;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+
+  /* add: */
+  transition: 
+    transform 0.3s ease, 
+    background-color 0.3s ease, 
+    box-shadow 0.3s ease;
+}
+
+/* on hover: lift + lighten + stronger shadow */
+.feature-card:hover {
+  transform: translateY(-6px);
+  background-color: #2a125c;
+  box-shadow: 0 16px 40px rgba(137, 49, 49, 0.806);
+}
+/* Base reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+/* Centered container */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+/* Section heading & subtitle */
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+.section-subtitle {
+  margin-top: 0.5rem;
+  color: #e0dff4;
+  font-size: 1rem;
+}
+
+/* Testimonial card */
+.testimonial-card {
+  background: #1e0f3e;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+}
+
+/* Quote + pause icon */
+.testimonial-header {
+  position: relative;
+  padding-right: 3rem; /* room for the icon */
+}
+.testimonial-quote {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: #fff;
+}
+.pause-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.5rem;
+  color: rgba(255,255,255,0.2);
+}
+
+/* Author block */
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  text-align: left;
+}
+.author-avatar {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  background: #9c6dff;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+.author-info .author-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+}
+.author-info .author-role {
+  font-size: 0.875rem;
+  color: #ccc;
+  margin-top: 0.25rem;
+}
+/* Container centering */
+.pricing-section .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  text-align: center;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  background: #0c0926; /* adjust or remove if your page BG differs */
+}
+
+/* Titles */
+.pricing-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.pricing-subtitle {
+  color: #ccc;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Toggle wrapper */
+.pricing-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Labels beside switch */
+.toggle-label {
+  color: #ccc;
+  font-size: 1rem;
+}
+
+/* Hide the checkbox itself */
+.pricing-toggle input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The pill-shaped track */
+.pricing-toggle label {
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  background: #e63946;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* The circular knob */
+.pricing-toggle label::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+/* Move knob to the right when “checked” */
+.pricing-toggle input[type="checkbox"]:checked + label::after {
+  transform: translateX(26px);
+}
+/* Center the section */
+.cta-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1rem;
+}
+
+/* Card container */
+.cta-container {
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  padding: 3rem 2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  text-align: center;
+
+  /* gradient from purple to almost-black */
+  background: linear-gradient(
+    180deg,
+    rgba(124, 58, 237, 0.8) 0%,
+    rgba(30, 16, 76, 0.9) 70%,
+    #0c0926 100%
+  );
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* Headline */
+.cta-title {
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+/* Form layout */
+.cta-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Email input */
+.cta-form input[type="email"] {
+  flex: 1 1 200px;
+  max-width: 300px;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 0.5rem;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.cta-form input[type="email"]::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+.cta-form input[type="email"]:focus {
+  border-color: #7c3aed;
+}
+
+/* Submit button */
+.cta-form button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(90deg, #f43131, #5616c480);
+  color: #fcfcff;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.cta-form button:hover {
+  background: #f1f1f1;
+  transform: translateY(-2px);
+}
+
+/* Subtext */
+.cta-subtext {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.7);
+}
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Footer Base */
+.footer {
+  background: #1f2028;
+  color: #ccc;
+  font-family: 'Inter', sans-serif;
+  padding: 4rem 1rem 2rem;
+}
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+/* Sidebar */
+.footer-sidebar {
+  background: #000d45ef;
+  border-radius: 12px;
+  padding: 2rem;
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.footer-sidebar .section-label {
+  color: #e05b3c;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+.sidebar-title {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  color: #f0f0f0;
+}
+.sidebar-title span {
+  display: block;
+  font-weight: 500;
+}
+.footer-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+}
+.footer-form input::placeholder {
+  color: #777;
+}
+.footer-form button {
+  background: #e05b3c;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.footer-form button:hover {
+  background: #c14a2f;
+}
+.privacy-link {
+  font-size: 0.75rem;
+  color: #555;
+  text-decoration: none;
+  margin-top: 2rem;
+}
+
+/* Main columns */
+.footer-main {
+  flex: 3 1 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+  gap: 2rem;
+}
+.footer-columns .section-label {
+  color: #e05b3c;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.footer-columns ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-columns a {
+  display: block;
+  color: #ccc;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-columns a:hover {
+  color: #fff;
+}
+.contact-info {
+  font-style: normal;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.contact-info a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+/* Subscription */
+.subscribe-col .subscribe-form {
+  display: flex;
+  gap: 0.5rem;
+}
+.subscribe-form input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+}
+.subscribe-form input::placeholder {
+  color: #777;
+}
+.subscribe-form button {
+  background: transparent;
+  border: none;
+  color: #e05b3c;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.subscribe-form button:hover {
+  color: #c14a2f;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #32333d;
+  padding-top: 2rem;
+}
+.footer-logo img {
+  height: 40px;
+}
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+.social-icons a {
+  color: #ccc;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 50%;
+  width: 36px; height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.social-icons a:hover {
+  background: #444;
+  color: #fff;
+}
+.footer-bottom p {
+  color: #777;
+  font-size: 0.75rem;
+  margin: 0.5rem 0 0;
+}
+
+/* Utility */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+/* make the particle canvas fill the viewport */
+ /* full‐screen behind content */
+ #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #2C2F48;   /* deep blue background */
+      z-index: -1;
+      pointer-events: none;
+    }
+
+
+
+/* Utility */
+.mt-12 { margin-top: 3rem; }
+.mt-16 { margin-top: 4rem; }
+
+    </style>
+</head>
+<body>  
+    <!--  particle background -->
+  <div id="particles-js"></div>
+<!-- Header -->
+<header>
+  <div class="logo">
+    <img src="images/logo2 4.png" alt="Smartfy Logo">
+   
+  </div>
+  <nav>
+    <a href="Home.html">Features</a>
+    <a href="solution.html">Solutions</a>
+    <a href="how it work.html">How it works</a>
+    <a href="about.html">About Us</a>
+    <a href="reach us.html">Communication</a>
+  </nav>
+  <button class="btn-primary">Get Started</button>
+</header>
+
+  <!-- Hero -->
+  <section class="relative py-20 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center">
+
+      <!-- Text Column -->
+      <div class="w-full lg:w-1/2 text-center lg:text-left z-10">
+        <div class="pill inline-flex items-center mb-4">
+          <span class="dot"></span>
+          <span>Chatbot Integration with IoT devices</span>
+        </div>
+
+        <h1 class="hero-title">
+          Control your IoT<br/>
+          with natural language.
+        </h1>
+        <p class="hero-subtitle max-w-md mx-auto lg:mx-0 mb-8">
+          Connect your smart devices and systems with AI. Where smart technology meets user-friendly chat interactions.
+        </p>
+        <a href="register.html">
+          <button class="btn-hero">Explore</button>
+        </a>
+      </div>
+
+      <!-- Robot Column -->
+      <div class="robot-container w-full lg:w-1/2 mb-10 lg:mb-0 relative">
+        <img
+          src="images/ai_chatbot-removebg-preview.png"
+          alt="Smartfy Robot"
+          class="mx-auto lg:ml-auto lg:mr-0 relative z-10"
+        />
+      </div>
+    </div>
+
+  
+    <!-- Trusted By -->
+    <div class="trusted-by mt-12 text-center z-10">
+      <p class="text-sm text-gray-400 mb-4">
+        Trusted by the world’s most innovative teams
+      </p>
+      <div class="logos flex justify-center space-x-8">
+        <img src="images/gdg.png" alt="Logo 1" class="h-6 opacity-70 hover:opacity-100">
+        <img src="images/cisco.png" alt="Logo 2" class="h-6 opacity-70 hover:opacity-100">
+        <img src="images/gitlab.png" alt="Logo 3" class="h-6 opacity-70 hover:opacity-100">
+        <img src="images/coding.png" alt="Logo 4" class="h-6 opacity-70 hover:opacity-100">
+      </div>
+    </div>
+  </section>
+
+   <!-- Features Section -->
+    <section class="features-section">
+      <div class="container">
+  
+        <!-- First row -->
+        <h2 class="section-title">
+          Harness the power of AI, making IoT control intuitive and effective for all skill levels.
+        </h2>
+        <div class="cards-row">
+          <div class="card dashboard-card">
+            <div class="card-header">
+              <div class="window-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <h3>IoT goal setting</h3>
+            </div>
+            <p class="card-desc">
+              Define your IoT use cases and project requirements
+            </p>
+            <div class="metric">10.15%</div>
+            <p class="metric-label">User-friendly dashboard</p>
+          </div>
+  
+          <div class="card dashboard-card">
+            <div class="card-header">
+              <div class="window-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <h3>Cloud reports</h3>
+            </div>
+            <p class="card-desc">
+              Keep track of your IoT system performance
+            </p>
+            <div class="metric">59.8K</div>
+            <p class="metric-label">requests handled</p>
+          </div>
+        </div>
+  
+        <!-- Second row -->
+        <h2 class="section-title mt-12">
+          Elevate your IoT efforts.
+        </h2>
+        <div class="cards-grid">
+          <div class="card feature-card">
+            <div class="feature-icon">⚡️</div>
+            <h4>Plug-and-Play Integration</h4>
+            <p>
+              Seamlessly connect Smartfy’s chatbot with your IoT devices using our dedicated APIs and libraries. Whether you’re using ESP32, Raspberry Pi, or Arduino, integration is quick and straightforward — no cloud dashboard needed.
+            </p>
+          </div>
+  
+          <div class="card feature-card">
+            <div class="feature-icon">⚙️</div>
+            <h4>Customized Embedded Solutions</h4>
+            <p>
+              Smartfy designs tailor-made firmware and embedded solutions that match your exact project requirements — from prototyping to deployment.
+            </p>
+          </div>
+  
+          <div class="card feature-card">
+            <div class="feature-icon">🌐</div>
+            <h4>IoT Ready &amp; Developer Friendly</h4>
+            <p>
+              Smartfy’s NLP-powered chatbot connects your IoT project to the cloud with SMS and email alerts, using platforms like Beam Africa API. It supports unlimited data transfer, with control and monitoring via natural conversation.
+            </p>
+          </div>
+  
+          <div class="card feature-card">
+            <div class="feature-icon">🗓️</div>
+            <h4>Content Automation</h4>
+            <p>
+              Simple instructions for immediate implementation. Define your IoT use cases and project requirements in minutes.
+            </p>
+          </div>
+  
+          <div class="card feature-card">
+            <div class="feature-icon">🔧</div>
+            <h4>IoT Goal Setting</h4>
+            <p>
+              Helps you set and achieve IoT goals with smart dashboard monitoring and actionable insights.
+            </p>
+          </div>
+  
+          <div class="card feature-card">
+            <div class="feature-icon">🔔</div>
+            <h4>Real-time Notifications</h4>
+            <p>
+              Automatic notifications about your IoT system status, warnings, and alerts so you never miss a beat.
+            </p>
+          </div>
+  
+          <div class="card feature-card">
+            <div class="feature-icon">⏱️</div>
+            <h4>On-site Optimization</h4>
+            <p>
+              Real-time device monitoring and control through our natural-language chatbot—for optimization wherever you are.
+            </p>
+          </div>
+  
+          <div class="card feature-card">
+            <div class="feature-icon">📊</div>
+            <h4>Competitor Reports</h4>
+            <p>
+              Powerful integration capabilities comparing performance across multiple devices to keep you ahead.
+            </p>
+          </div>
+  
+          <div class="card feature-card">
+            <div class="feature-icon">💬</div>
+            <h4>Smart Voice Generator</h4>
+            <p>
+              Automatically suggests relevant keywords and voice prompts to deploy with your IoT system.
+            </p>
+          </div>
+        </div>
+  
+      </div>
+    </section>
+  
+  
+
+    <!-- How It Works Section -->
+    <section class="py-16 px-6" id="how-it-works">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-16">How It Works</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-6">
+                    <div class="w-12 h-12 purple-gradient rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <span class="text-xl font-bold">1</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3">📝 Define Requirements</h3>
+                    <p class="text-gray-400 text-sm">Tell us what you're building — from home automation to industrial monitoring — and we'll tailor Smartfy Chatbot to match.</p>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="w-12 h-12 purple-gradient rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <span class="text-xl font-bold">2</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3">🔧 Design & Develop</h3>
+                    <p class="text-gray-400 text-sm">We help you configure your device, generate your integration API key, and install the required libraries.</p>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="w-12 h-12 purple-gradient rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <span class="text-xl font-bold">3</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3">🤖 Integration & Control</h3>
+                    <p class="text-gray-400 text-sm">Control your IoT system directly via chat. The current version supports one user to one device, with real-time messaging, notifications, and full command support.</p>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <p class="text-gray-300 mb-6">💬 Ready to simplify your embedded tech experience?</p>
+                <button class="btn-primary px-6 py-3 rounded-lg font-medium">📞 Contact us now for a free consultation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+    <div class="container">
+      <h2 class="section-title">Our clients</h2>
+      <p class="section-subtitle">
+        User feedback from our solutions have boosted project success for users like you.
+      </p>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <p class="testimonial-quote">
+            "This product has completely transformed how we manage our projects and clientele."
+          </p>
+          <span class="pause-icon">❚❚</span>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar"></div>
+          <div class="author-info">
+            <p class="author-name">Indsdigital Technologies Ltd</p>
+            <p class="author-role">Head of Technical Services at Quantum</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Call to Action Section --> 
+<section class="cta-section">
+    <div class="cta-container">
+      <h2 class="cta-title">AI-driven SEO for everyone.</h2>
+
+      <form class="cta-form">
+        <input
+          type="email"
+          placeholder="Your email"
+          required
+        />
+        <button type="submit">Join waitlist</button>
+      </form>
+
+      <p class="cta-subtext">
+        No credit card required · 7-days free trial
+      </p>
+    </div>
+  </section>
+
+    <!-- Pricing Section -->
+  <section class="pricing-section">
+    <div class="container">
+      <!-- Section header -->
+      <h2 class="pricing-title">Pricing</h2>
+      <p class="pricing-subtitle">
+        Choose the right plan to meet your IoT needs and start optimizing costs.
+      </p>
+  
+      <!-- Toggle -->
+      <div class="pricing-toggle">
+        <span class="toggle-label">Monthly</span>
+        <input type="checkbox" id="pricing-switch" checked>
+        <label for="pricing-switch"></label>
+        <span class="toggle-label">Annual</span>
+      </div>
+    </div>
+  </section>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+  
+      <!-- Left sidebar: feedback form -->
+      <div class="footer-sidebar">
+        <small class="section-label">FEEDBACK</small>
+        <h2 class="sidebar-title">Seeking personalized support?<br><span>Request a call from our team</span></h2>
+  
+        <form class="footer-form">
+          <label for="name" class="sr-only">Your Name</label>
+          <input type="text" id="name" placeholder="Your Name" required>
+  
+          <label for="phone" class="sr-only">Phone Number</label>
+          <input type="tel" id="phone" placeholder="Phone Number" required>
+  
+          <button type="submit">Send a request</button>
+        </form>
+  
+        <a href="#" class="privacy-link">Privacy</a>
+      </div>
+  
+      <!-- Right main: links, contact, subscribe, social -->
+      <div class="footer-main">
+        <div class="footer-columns">
+          <div class="col">
+            <small class="section-label">INFO</small>
+            <ul>
+              <li><a href="Home.html">features</a></li>
+              <li><a href="how it work.html">how it works</a></li>
+              <li><a href="solution.html">solutions</a></li>
+              <li><a href="reach us.html">contact us</a></li>
+              
+            </ul>
+          </div>
+          <div class="col">
+            <small class="section-label">ABOUT US</small>
+            <ul>
+              <li><a href="#">Gallery</a></li>
+              <li><a href="#">Technologies</a></li>
+              <li><a href="#">Contacts</a></li>
+            </ul>
+          </div>
+          <div class="col">
+            <small class="section-label">CONTACT US</small>
+            <address class="contact-info">
+              +255 752607104<br>
+              <a href="gidionmlay5@gmail.com">gidionmlay5@gmail.com</a><br>
+              Arusha, Tanzania
+            </address>
+          </div>
+          <div class="col subscribe-col">
+            <small class="section-label">SUBSCRIPTION</small>
+            <form class="subscribe-form">
+              <label for="email" class="sr-only">E-mail</label>
+              <input type="email" id="email" placeholder="E-mail" required>
+              <button type="submit" aria-label="Subscribe">›</button>
+            </form>
+          </div>
+        </div>
+  
+        <!-- Logo and socials -->
+        <div class="footer-bottom">
+          <div class="footer-logo">
+            <img src="images/smartfy_icon.png" alt="Company Logo">
+          </div>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+          <p class="copyright">
+            © 2025 Smartfy Company — Copyright
+          </p>
+        </div>
+      </div>
+  
+    </div>
+  </footer>
+
+    <!-- particles.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <!-- init config -->
+  <script>
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 60,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle"
+        },
+        "opacity": {
+          "value": 0.6,
+          "random": false,
+          "anim": {
+            "enable": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.3,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 1.5,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": false
+          },
+          "onclick": {
+            "enable": false
+          },
+          "resize": true
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+</body>
+</html>
+  

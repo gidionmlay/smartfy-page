@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Smartfy – About Us</title>
+
+  <!-- Three.js for background animation -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
+
+  <style>
+    /* --- RESET & BASE --- */
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0c0926;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+
+    /* --- PARTICLES & HERO WRAPPER --- */
+    #bg-canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100vh;
+      z-index: 0;
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url() center center/cover no-repeat, rgba(22, 39, 41, 0.39);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* --- HEADER --- */
+    header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(115,55,183,0.2);
+    }
+    header .logo {
+      display: flex;
+      align-items: center;
+    }
+    header .logo img {
+      height: 40px;
+      margin-right: 0.5rem;
+    }
+    header nav a {
+      margin-left: 2rem;
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    header nav a:hover {
+      color: #fff;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, #f43131, #5616c4 80%);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+
+    /* --- ABOUT SECTION --- */
+    .about {
+      text-align: center;
+      padding: 4rem 1rem;
+      position: relative;
+      z-index: 2;
+      margin-top: 0;
+    }
+    .about h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+    .about .gradient-text {
+      background: linear-gradient(90deg, #9c6dff, #5616c4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .about p {
+      color: #ccc;
+      font-size: 1.125rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .about img {
+      border-radius: 12px;
+      opacity: 0.8;
+    }
+    
+  /* Parent must be relative for absolutely-positioned video */
+  .video-bg-section {
+    position: relative;
+    overflow: hidden;
+    background: #322d61;  /* fallback color */
+    color: #fff;
+    padding: 4rem 1rem;
+  }
+  
+  /* Full-bleed, slow-motion background video */
+  .bg-video {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    /* Slow down playback: */
+    animation: slowPlayback 60s linear infinite;
+    z-index: 0;
+    opacity: 0.6;
+  }
+  
+  /* Keyframes to slow the video */
+  @keyframes slowPlayback {
+    from { playbackRate: 1; }
+    to   { playbackRate: 1; }
+  }
+  /* Note: some browsers don't honor CSS playbackRate—use JS if needed:
+     document.querySelector('.bg-video').playbackRate = 0.5;   */
+  
+  /* Overlay sits above video */
+  .overlay-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  /* Headings */
+  .overlay-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .overlay-content p {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    color: rgba(255,255,255,0.85);
+  }
+  
+  /* Team cards grid */
+  .team-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 2rem;
+  }
+  .team-card {
+    background: rgba(30,16,76,0.8);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .team-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    object-fit: cover;
+  }
+  .team-card h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.125rem;
+  }
+  .team-card p {
+    color: #ccc;
+    font-size: 0.9rem;
+  }
+
+    /* --- VISION & MISSION --- */
+    .vm {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 6rem 1rem;
+      background: rgba(30,16,76,0.3);
+      border-radius: 24px;
+      margin-top: 2rem;
+    }
+    .vm > div {
+      flex: 1 1 300px;
+    }
+    .vm h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #9c6dff, #5616c4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .vm p {
+      color: #ccc;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    /* --- VALUES --- */
+    .values {
+      padding: 4rem 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .values h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+      gap: 2rem;
+    }
+    .value-card {
+      background: #1e104c;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .value-card:hover { transform: translateY(-6px); }
+    .value-card .icon {
+      width: 48px; height: 48px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background: linear-gradient(90deg,#5616c4,#9c6dff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .value-card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+    .value-card p {
+      color: #aaa;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    /* --- TEAM --- */
+    .team {
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+    .team h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .team-card {
+      background: rgba(30,16,76,0.8);
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+    .team-card img {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+    .team-card h4 {
+      margin-bottom: 0.25rem;
+      font-size: 1.125rem;
+    }
+    .team-card p { color: #aaa; margin-bottom: 1rem; }
+
+    /* --- CTA & FOOTER --- */
+    .cta {
+      padding: 4rem 1rem;
+      background: rgba(79,45,157,0.2);
+      text-align: center;
+      border-radius: 24px;
+      margin: 2rem;
+    }
+    .cta h2 { font-size: 2rem; margin-bottom:1rem; }
+    .footer {
+      padding: 2rem 1rem;
+      border-top: 1px solid #322d61;
+      text-align: center;
+    }
+    /* Footer Base */
+.footer {
+  background: #1f2028;
+  color: #ccc;
+  font-family: 'Inter', sans-serif;
+  padding: 4rem 1rem 2rem;
+}
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+/* Sidebar */
+.footer-sidebar {
+  background: #000d45ef;
+  border-radius: 12px;
+  padding: 2rem;
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.footer-sidebar .section-label {
+  color: #e05b3c;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+.sidebar-title {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  color: #f0f0f0;
+}
+.sidebar-title span {
+  display: block;
+  font-weight: 500;
+}
+.footer-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+}
+.footer-form input::placeholder {
+  color: #777;
+}
+.footer-form button {
+  background: #e05b3c;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.footer-form button:hover {
+  background: #c14a2f;
+}
+.privacy-link {
+  font-size: 0.75rem;
+  color: #555;
+  text-decoration: none;
+  margin-top: 2rem;
+}
+
+/* Main columns */
+.footer-main {
+  flex: 3 1 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+  gap: 2rem;
+}
+.footer-columns .section-label {
+  color: #e05b3c;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.footer-columns ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-columns a {
+  display: block;
+  color: #ccc;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-columns a:hover {
+  color: #fff;
+}
+.contact-info {
+  font-style: normal;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.contact-info a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+/* Subscription */
+.subscribe-col .subscribe-form {
+  display: flex;
+  gap: 0.5rem;
+}
+.subscribe-form input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+}
+.subscribe-form input::placeholder {
+  color: #777;
+}
+.subscribe-form button {
+  background: transparent;
+  border: none;
+  color: #e05b3c;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.subscribe-form button:hover {
+  color: #c14a2f;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #32333d;
+  padding-top: 2rem;
+}
+.footer-logo img {
+  height: 40px;
+}
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+.social-icons a {
+  color: #ccc;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 50%;
+  width: 36px; height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.social-icons a:hover {
+  background: #444;
+  color: #fff;
+}
+.footer-bottom p {
+  color: #777;
+  font-size: 0.75rem;
+  margin: 0.5rem 0 0;
+}
+
+/* Utility */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (moved to top) -->
+  <header>
+    <div class="logo">
+      <img src="images/logo2 4.png" alt="Smartfy">
+    </div>
+    <nav>
+      <a href="Home.html">Features</a>
+      <a href="solution.html">Solutions</a>
+      <a href="how it work.html">How it works</a>
+      <a href="about.html">About Us</a>
+      <a href="reach us.html">Communication</a>
+    </nav>
+    <a href="register.html">
+      <button class="btn-primary">Get Started</button>
+    </a>
+  </header>
+
+  <section class="hero">
+    <canvas id="bg-canvas"></canvas>
+    <!-- ABOUT -->
+    <div class="about">
+      <h1>About <span class="gradient-text">Smartfy</span></h1>
+      <p>Building the next generation of AI-powered IoT solutions that bridge the gap between technology and human interaction.</p>
+    </div>
+  </section>
+  
+  <!-- VISION & MISSION -->
+  <section class="vm">
+    <div>
+      <h2>Our Vision</h2>
+      <p>To lead globally in embedded and IoT innovation…</p>
+      <p>We envision a world where technology adapts to human communication…</p>
+    </div>
+    <div>
+      <h2>Our Mission</h2>
+      <p>To simplify embedded technology for everyone…</p>
+      <p>We're committed to removing the technical barriers…</p>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <h2>Our Values</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="icon">🤝</div>
+        <h3>Collaboration</h3>
+        <p>We work with students, developers, and startups…</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">🧠</div>
+        <h3>Transparency</h3>
+        <p>Our chatbot engine and APIs are well-documented…</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">🚀</div>
+        <h3>Innovation</h3>
+        <p>Powered by our custom Smartfy NLP engine…</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">🏆</div>
+        <h3>Quality</h3>
+        <p>We provide scalable, reliable, and real-world tested solutions…</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team">
+    <h2>Meet Our Team</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="images/user_9303337.png" alt="Tamimu Rashid">
+        <h4>Tamimu Rashid</h4>
+        <p>CTO & Founder</p>
+      </div>
+      <div class="team-card">
+        <img src="images/user_9303337.png" alt="Calvin">
+        <h4>Calvin</h4>
+        <p>CEO & Founder</p>
+      </div>
+      <div class="team-card">
+        <img src="images/user_9303337.png" alt="Musa">
+        <h4>Musa</h4>
+        <p>COO</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>Ready to bring your IoT idea to life?</h2>
+    <p>Let's build your future with Smartfy's chatbot-first platform.</p>
+    <button class="btn-primary">Contact Us Today</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+  
+      <!-- Left sidebar: feedback form -->
+      <div class="footer-sidebar">
+        <small class="section-label">FEEDBACK</small>
+        <h2 class="sidebar-title">Seeking personalized support?<br><span>Request a call from our team</span></h2>
+  
+        <form class="footer-form">
+          <label for="name" class="sr-only">Your Name</label>
+          <input type="text" id="name" placeholder="Your Name" required>
+  
+          <label for="phone" class="sr-only">Phone Number</label>
+          <input type="tel" id="phone" placeholder="Phone Number" required>
+  
+          <button type="submit">Send a request</button>
+        </form>
+  
+        <a href="#" class="privacy-link">Privacy</a>
+      </div>
+  
+      <!-- Right main: links, contact, subscribe, social -->
+      <div class="footer-main">
+        <div class="footer-columns">
+          <div class="col">
+            <small class="section-label">INFO</small>
+            <ul>
+              <li><a href="Home.html">features</a></li>
+              <li><a href="solution.html">Solutions</a></li>
+              <li><a href="how it work.html">How it works</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="reach us.html">Communication</a></li>
+              
+            </ul>
+          </div>
+          <div class="col">
+            <small class="section-label">ABOUT US</small>
+            <ul>
+              <li><a href="#">Gallery</a></li>
+              <li><a href="#">Technologies</a></li>
+              <li><a href="#">Contacts</a></li>
+            </ul>
+          </div>
+          <div class="col">
+            <small class="section-label">CONTACT US</small>
+            <address class="contact-info">
+              +255 752607104<br>
+              <a href="gidionmlay5@gmail.com">gidionmlay5@gmail.com</a><br>
+              Arusha, Tanzania
+            </address>
+          </div>
+          <div class="col subscribe-col">
+            <small class="section-label">SUBSCRIPTION</small>
+            <form class="subscribe-form">
+              <label for="email" class="sr-only">E-mail</label>
+              <input type="email" id="email" placeholder="E-mail" required>
+              <button type="submit" aria-label="Subscribe">›</button>
+            </form>
+          </div>
+        </div>
+  
+        <!-- Logo and socials -->
+        <div class="footer-bottom">
+          <div class="footer-logo">
+            <img src="images/smartfy logo white.jpg" alt="Company Logo">
+          </div>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+          <p class="copyright">
+            © 2025 Smartfy Company — Copyright
+          </p>
+        </div>
+      </div>
+  
+    </div>
+  </footer>
+  
+
+  <!-- THREE.JS WIRE-FRAME BACKGROUND -->
+  <script>
+    const scene    = new THREE.Scene();
+    const camera   = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight * 0.5);
+
+    const geo = new THREE.PlaneGeometry(40,40,80,80);
+    geo.rotateX(-Math.PI/2);
+
+    const pos = geo.attributes.position;
+    const mat = new THREE.ShaderMaterial({
+      wireframe: true,
+      transparent: true,
+      vertexShader: `
+        varying float vY;
+        void main(){
+          vY = position.y;
+          gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0);
+        }
+      `,
+      fragmentShader: `
+        varying float vY;
+        void main(){
+          float hue = mod(vY*0.1+0.5,1.0);
+          vec3 c = vec3(
+            abs(hue*6.-3.)-1.,
+            2.-abs(hue*6.-2.),
+            2.-abs(hue*6.-4.)
+          );
+          gl_FragColor = vec4(clamp(c,0.,1.),0.7);
+        }
+      `
+    });
+
+    const mesh = new THREE.Mesh(geo,mat);
+    scene.add(mesh);
+    camera.position.set(0,10,20);
+    camera.lookAt(0,0,0);
+
+    (function animate(){
+      requestAnimationFrame(animate);
+      const t = performance.now()*0.0005;
+      for(let i=0;i<pos.count;i++){
+        const x = pos.getX(i), z = pos.getZ(i);
+        const y = Math.sin(x*0.3+t)*1.5 + Math.cos(z*0.5+t*1.2)*1.0;
+        pos.setY(i,y);
+      }
+      pos.needsUpdate=true;
+      mesh.rotation.y+=0.0005;
+      renderer.render(scene,camera);
+    })();
+
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth/(window.innerHeight*0.5);
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight*0.5);
+    });
+  </script>
+
+</body>
+</html>

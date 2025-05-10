@@ -6,6 +6,8 @@
   <title>Smartfy – Services</title>
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.0/tsparticles.bundle.min.js"></script>
+  
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -78,10 +80,15 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: url('images/MuchaTseBle.jpg') center center/cover no-repeat, linear-gradient(90deg,#6358ca 60%,#5616c411 100%);
       position: relative;
       padding-top: 100px;
       text-align: center;
+      overflow: hidden;
+    }
+    #tsparticles-owl {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
     }
     .hero-content {
       z-index: 2;
@@ -576,7 +583,6 @@
     <nav>
       <a href="Home.html">Features</a>
       <a href="solution.html">Solutions</a>
-      <a href="how it work.html">How it works</a>
       <a href="about.html">About Us</a>
       <a href="reach us.html">Communication</a>
     </nav>
@@ -587,6 +593,7 @@
 
   <!-- HERO -->
   <section class="hero">
+    <div id="tsparticles-owl"></div>
     <div class="hero-content">
       <h1 class="gradient-text">AI‑Driven IoT Control</h1>
       <p>Connect & command your devices with natural language. Smartfy brings AI-powered automation to your fingertips.</p>
@@ -712,51 +719,8 @@
     </div>
   </section>
 
-  <!-- PRICING / PLANS -->
-  <section class="pricing">
-    <h2 class="gradient-text">Pricing & Plans</h2>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-title">Starter</div>
-        <div class="pricing-price">$29/mo</div>
-        <div class="pricing-features">
-          <ul>
-            <li>Up to 10 devices</li>
-            <li>Email support</li>
-            <li>Basic analytics</li>
-          </ul>
-        </div>
-        <button class="btn-primary">Start Free Trial</button>
-      </div>
-      <div class="pricing-card">
-        <div class="pricing-title">Professional</div>
-        <div class="pricing-price">$99/mo</div>
-        <div class="pricing-features">
-          <ul>
-            <li>Up to 100 devices</li>
-            <li>Priority support</li>
-            <li>Advanced analytics</li>
-            <li>Custom integrations</li>
-          </ul>
-        </div>
-        <button class="btn-primary">Start Free Trial</button>
-      </div>
-      <div class="pricing-card">
-        <div class="pricing-title">Enterprise</div>
-        <div class="pricing-price">Custom</div>
-        <div class="pricing-features">
-          <ul>
-            <li>Unlimited devices</li>
-            <li>Dedicated support</li>
-            <li>Custom solutions</li>
-            <li>SLAs & onboarding</li>
-          </ul>
-        </div>
-        <button class="btn-primary">Contact Sales</button>
-      </div>
-    </div>
-  </section>
-
+   
+           
   <!-- FAQ ACCORDION -->
   <section class="faq">
     <h2 class="gradient-text">Frequently Asked Questions</h2>
@@ -866,6 +830,43 @@
     document.querySelectorAll('.faq-item').forEach(item => {
       item.addEventListener('click', function() {
         this.classList.toggle('open');
+      });
+    });
+    // tsParticles owl effect
+    window.addEventListener('DOMContentLoaded', () => {
+      tsParticles.load('tsparticles-owl', {
+        background: { color: 'transparent' },
+        fpsLimit: 60,
+        particles: {
+          number: { value: 120, density: { enable: true, area: 800 } },
+          color: { value: ['#00eaff', '#00bfff', '#1ec8ff', '#aaf6ff'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.7, random: true },
+          size: { value: 2.5, random: { enable: true, minimumValue: 1 } },
+          links: {
+            enable: true,
+            distance: 120,
+            color: '#00eaff',
+            opacity: 0.5,
+            width: 1.2,
+            triangles: { enable: true, color: '#00eaff', opacity: 0.12 }
+          },
+          move: {
+            enable: true,
+            speed: 1.2,
+            direction: 'none',
+            random: true,
+            straight: false,
+            outModes: { default: 'out' }
+          },
+          glow: {
+            enable: true,
+            color: '#00eaff',
+            radius: 10,
+            intensity: 0.5
+          }
+        },
+        detectRetina: true
       });
     });
   </script>

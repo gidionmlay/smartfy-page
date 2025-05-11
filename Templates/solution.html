@@ -6,12 +6,13 @@
   <title>Smartfy – Services</title>
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.0/tsparticles.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
   
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: #080054;
+      background-color: #0c0926;
       color: #fff;
       margin: 0;
       padding: 0;
@@ -19,7 +20,7 @@
     }
     a { color: inherit; text-decoration: none; }
     .gradient-text {
-      background: linear-gradient(90deg, #fd5f5f, #e5d6ff);
+      background: linear-gradient(90deg, #9e0000, #2b233979);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -52,27 +53,44 @@
       background: #9c6dff;
       color: #fff;
     }
-    /* HEADER */
+    /* --- HEADER --- */
     header {
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      z-index: 10;
+      position: relative;
+      background-color: #19104c;
+      z-index: 2;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: rgba(12,9,38,0.85);
       border-bottom: 1px solid rgba(115,55,183,0.2);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
-    header .logo img { height: 40px; margin-right: 0.5rem; }
+    header .logo {
+      display: flex;
+      align-items: center;
+    }
+    header .logo img {
+      height: 40px;
+      margin-right: 0.5rem;
+    }
     header nav a {
       margin-left: 2rem;
       color: #ccc;
       text-decoration: none;
       transition: color 0.2s;
     }
-    header nav a:hover { color: #fff; }
+    header nav a:hover {
+      color: #fff;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, #f43131, #5616c4 80%);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.9; }
     /* HERO */
     .hero {
       min-height: 100vh;
@@ -103,11 +121,11 @@
     }
     .hero p {
       font-size: 1.25rem;
-      color: #ccc;
+      color: #f4f0f0;
       margin-bottom: 2rem;
     }
     .hero-illustration {
-      margin: 2rem auto 0;
+      margin: 1rem auto 0;
       max-width: 420px;
       border-radius: 18px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.25);
@@ -125,16 +143,18 @@
       flex-wrap: wrap;
     }
     .pillar-card {
-      background: #1e104c;
+      background: #28144759;
       border-radius: 14px;
       padding: 2rem 1.5rem;
       text-align: center;
       flex: 1 1 220px;
       min-width: 220px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-      transition: transform 0.2s;
+     
+      transition: transform 0.9s;
     }
-    .pillar-card:hover { transform: translateY(-6px); }
+    .pillar-card:hover { transform: translateY(-6px);
+     box-shadow: 0 4px 16px rgba(222, 0, 0, 0.548);
+    }
     .pillar-icon {
       font-size: 2.5rem;
       margin-bottom: 1rem;
@@ -162,7 +182,7 @@
       padding: 0 1rem;
     }
     .feature-card {
-      background: #1e104c;
+      background: #1e104caf;
       border-radius: 14px;
       padding: 2rem 1.5rem;
       text-align: center;
@@ -575,7 +595,9 @@
   </style>
 </head>
 <body>
-  <!-- HEADER -->
+  <!--  particle background -->
+  <div id="particles-js"></div>
+  <!-- HEADER (moved to top) -->
   <header>
     <div class="logo">
       <img src="images/logo2 4.png" alt="Smartfy">
@@ -825,49 +847,70 @@
   
     </div>
   </footer>
+  <!-- particles.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <!-- init config -->
   <script>
-    // FAQ accordion
-    document.querySelectorAll('.faq-item').forEach(item => {
-      item.addEventListener('click', function() {
-        this.classList.toggle('open');
-      });
-    });
-    // tsParticles owl effect
-    window.addEventListener('DOMContentLoaded', () => {
-      tsParticles.load('tsparticles-owl', {
-        background: { color: 'transparent' },
-        fpsLimit: 60,
-        particles: {
-          number: { value: 120, density: { enable: true, area: 800 } },
-          color: { value: ['#00eaff', '#00bfff', '#1ec8ff', '#aaf6ff'] },
-          shape: { type: 'circle' },
-          opacity: { value: 0.7, random: true },
-          size: { value: 2.5, random: { enable: true, minimumValue: 1 } },
-          links: {
-            enable: true,
-            distance: 120,
-            color: '#00eaff',
-            opacity: 0.5,
-            width: 1.2,
-            triangles: { enable: true, color: '#00eaff', opacity: 0.12 }
-          },
-          move: {
-            enable: true,
-            speed: 1.2,
-            direction: 'none',
-            random: true,
-            straight: false,
-            outModes: { default: 'out' }
-          },
-          glow: {
-            enable: true,
-            color: '#00eaff',
-            radius: 10,
-            intensity: 0.5
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 60,
+          "density": {
+            "enable": true,
+            "value_area": 800
           }
         },
-        detectRetina: true
-      });
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle"
+        },
+        "opacity": {
+          "value": 0.6,
+          "random": false,
+          "anim": {
+            "enable": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.3,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 1.5,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": false
+          },
+          "onclick": {
+            "enable": false
+          },
+          "resize": true
+        }
+      },
+      "retina_detect": true
     });
   </script>
 </body>

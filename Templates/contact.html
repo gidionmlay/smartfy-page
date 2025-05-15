@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Smartfy</title>
+    <link href="Templates/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        header {
+      position:relative; z-index:2;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1rem 2rem;
+      border-bottom:1px solid rgba(115,55,183,0.2);
+      background:rgba(17,31,77,0.6);
+      border-radius: 10px;
+    }
+    .logo {
+      display:flex; align-items:center;
+    }
+    .logo img {
+      height: 50px;
+      margin-right:0.5rem;
+    }
+    nav a {
+      margin-left:2rem;
+      color:#fefdfd;
+      transition:color .2s;
+      text-decoration: none;
+    }
+    nav a:hover { color:#d60000; }
+    .gradient-text {
+      background:linear-gradient(90deg,#f43131,#b02222);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    /*=============== BUTTONS ===============*/
+    .btn-primary {
+      background:linear-gradient(90deg,#f43131,#5616c480);
+      color:#fff;
+      padding:.5rem 1rem;
+      border:none;
+      border-radius:.375rem;
+      cursor:pointer;
+      transition:opacity .2s;
+    }
+    .btn-primary:hover { opacity:.9; }
+
+    .btn-hero {
+      background:linear-gradient(90deg,#f43131,#750000d8);
+      padding:.75rem 1.5rem;
+      border-radius:.5rem;
+      color:#fff;
+      font-weight:600;
+      box-shadow:0 8px 20px rgba(230,57,70,.3);
+      transition:background .2s, transform .2s;
+    }
+    .btn-hero:hover {
+      background:#ffffff;
+      transform:translateY(-2px);
+    }
+        .contact-container {
+            max-width: 1300px;
+            margin: 3rem auto;
+            background-color: #0c0926;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: 5.5rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4.9rem;
+            justify-content: center;
+        }
+        .contact-left, .contact-right {
+            flex: 1 1 340px;
+            min-width: 320px;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.2rem;
+            border-radius: 8px;
+            border: 1px solid #2d2250;
+            background: rgba(30, 15, 60, 0.7);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            border: 1.5px solid #9c6dff;
+        }
+        .contact-form textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #ec0000 0%, #ff0000 100%);
+            cursor: pointer;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .contact-form button:hover {
+            background-color: #ffffff;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 18px rgba(120,0,255,0.07);
+            
+        }
+        .contact-info-card {
+            background: rgba(25, 6, 63, 0.916);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 1.5rem 1.2rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.1rem;
+            box-shadow: 0 4px 18px rgba(120,0,255,0.07);
+        }
+        .contact-info-card:last-child { margin-bottom: 0; }
+        .contact-info-icon {
+            font-size: 1.7rem;
+            border-radius: 8px;
+            padding: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon-email { background: rgba(255, 255, 255, 0.959); color: #ec0000; }
+        .icon-phone { background: rgba(255, 255, 255, 0.998); color: #ff0000; }
+        .icon-location { background: rgb(255, 255, 255); color: #ae0101; }
+        .contact-info-content h4 {
+            margin: 0 0 0.2rem 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .contact-info-content p {
+            margin: 0 0 0.3rem 0;
+            color: #ccc;
+            font-size: 0.98rem;
+        }
+        .contact-info-content a {
+            color: #7e7e7e;
+            text-decoration: underline;
+            font-size: 0.98rem;
+        }
+        @media (max-width: 900px) {
+            .contact-container { flex-direction: column; gap: 2rem; }
+        }
+        /* Footer */
+/* footer container */
+.site-footer {
+  position: relative;
+  background: #0c0032;
+  overflow: hidden;
+}
+
+/* top wave */
+.footer-wave {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+}
+.footer-wave svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 80px;
+}
+
+/* newsletter */
+.newsletter {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: -24px auto 40px; /* pull it up over the wave */
+  padding: 32px 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(181, 85, 255, 0.068);
+  text-align: center;
+}
+.newsletter :hover {
+  box-shadow: 0 20px 40px rgba(175, 0, 0, 0.409);
+  color: #fff5f5;
+}
+.newsletter h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+.newsletter form {
+  display: inline-flex;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.newsletter input {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+.newsletter button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0 24px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* middle section */
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+.footer-links,
+.footer-policy {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+}
+.footer-links a,
+.footer-policy a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1rem;
+}
+.social-icons {
+  display: flex;
+  gap: 24px;
+}
+.social-icons a {
+  color: #ffffff;
+  font-size: 1.25rem;
+}
+
+/* divider */
+hr {
+  border: none;
+  border-top: 1px solid #e1e1e1;
+  margin: 0;
+}
+
+/* bottom row */
+.footer-bottom {
+  max-width: 900px;
+  margin: 20px auto 40px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+.footer-logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #007bff;
+  border: 2px solid #ffffff00;
+  padding: 4px 12px;
+  border-radius: 4px;
+  letter-spacing: 2px;
+}
+/* make the particle canvas fill the viewport */
+ /* full‐screen behind content */
+ #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #2C2F48;   /* deep blue background */
+      z-index: -1;
+      pointer-events: none;
+    }
+
+
+
+/* Utility */
+.mt-12 { margin-top: 3rem; }
+.mt-16 { margin-top: 4rem; }
+
+    
+    </style>
+</head>
+<body>
+     <!--  particle background -->
+  <div id="particles-js"></div>
+    <!-- Header -->
+<header>
+  <div class="logo">
+    <img src="images/logo2 4.png" alt="Smartfy Logo">
+   
+  </div>
+  <nav>
+    <a href="Home.html">Features</a>
+    <a href="solution.html">Solutions</a>
+    <a href="about.html">About</a>
+    <a href="reach us.html">Reach us</a>
+  </nav>
+  <a href="login.html"><button class="btn-primary">Get Started</button></a>
+</header>
+    <div style="padding-top: 2.5rem; text-align: center;">
+        <h1 style="font-size: 2.8rem; font-weight: 700; margin-bottom: 0.5rem;">
+            Get In <span class="gradient-text">Touch</span>
+        </h1>
+        <p style="color: #ccc; font-size: 1.25rem; max-width: 600px; margin: 0 auto 2.5rem auto;">
+            Ready to build something amazing together? Drop us a line and let's start creating.
+        </p>
+    </div>
+    <div class="contact-container">
+        <div class="contact-left">
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Subject" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">
+                    Send Message <i class='bx bx-send'></i>
+                </button>
+            </form>
+        </div>
+        <div class="contact-right">
+            <div class="contact-info-card">
+                <div class="contact-info-icon icon-email">
+                    <i class='bx bx-envelope'></i>
+                </div>
+                <div class="contact-info-content">
+                    <h4>Email Us</h4>
+                    <p>We'll respond within 24 hours</p>
+                    <a href="rashidytamimu@gmail.com">smartfytechnologie@gmail.com</a>
+                </div>
+            </div>
+            <div class="contact-info-card">
+                <div class="contact-info-icon icon-phone">
+                    <i class='bx bx-phone'></i>
+                </div>
+                <div class="contact-info-content">
+                    <h4>Call Us</h4>
+                    <p>Mon-Fri from 9am to 6pm</p>
+                    <a href="tel:+255 621 351 603">+255 621 351 603</a>
+                </div>
+            </div>
+            <div class="contact-info-card">
+                <div class="contact-info-icon icon-location">
+                    <i class='bx bx-map'></i>
+                </div>
+                <div class="contact-info-content">
+                    <h4>Visit Us</h4>
+                    <p>Come say hello at our office</p>
+                    <a href="https://maps.google.com/?q=123+Creative+Ave,+Tech+City,+CA+94107" target="_blank">Njiro,Arusha Tanzania</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer section -->
+  <footer class="site-footer">
+    <!-- top wave -->
+    <div class="footer-wave">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0 C600,120 600,120 1200,0 L1200,120 L0,120 Z" fill="#0c0032" />
+      </svg>
+    </div>
+
+    <!-- newsletter signup -->
+    <div class="newsletter">
+      <h2>Subscribe Newsletters</h2>
+      <form>
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit">Subscribe Now</button>
+      </form>
+    </div>
+
+    <!-- middle links + socials -->
+    <div class="footer-main">
+      <ul class="footer-links">
+        <li><a href="about.html">About us</a></li>
+        <li><a href="Home.html">Discover</a></li>
+        <li><a href="solution.html">Explore</a></li>
+       
+      </ul>
+      <div class="social-icons">
+       <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Vimeo"><i class="fab fa-vimeo-v"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- bottom row -->
+    <div class="footer-bottom">
+      <p>© 2025 Smartfy Technologies. All rights reserved.</p>
+      <div class="footer-logo">
+        
+        <img src="images/smartfy_icon.png" alt="Smartfy Logo" style="height: 3rem;">
+      </div>
+      <ul class="footer-policy">
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>  
+  </footer>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- particles.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <!-- init config -->
+  <script>
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 60,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle"
+        },
+        "opacity": {
+          "value": 0.6,
+          "random": false,
+          "anim": {
+            "enable": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.3,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 1.5,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": false
+          },
+          "onclick": {
+            "enable": false
+          },
+          "resize": true
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+</body>
+</html>

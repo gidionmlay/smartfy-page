@@ -4,15 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Smartfy – Services</title>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.92/build/spline-viewer.js"></script>
+
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
   
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #0c0926;
+      background: rgba(46, 50, 58, 0.927);
+      opacity: var(#007bff);
       color: #fff;
       margin: 0;
       padding: 0;
@@ -20,9 +23,11 @@
     }
     a { color: inherit; text-decoration: none; }
     .gradient-text {
-      background: linear-gradient(90deg, #9e0000, #2b233979);
+      background: linear-gradient(90deg, rgba(184, 8, 8, 0.913), 0, 0, #3a187479);
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      -webkit-text-fill-color:rgba(184, 8, 8, 0.913) ;
+      font-size: large;
     }
     .btn-primary {
       background: linear-gradient(90deg, #f43131, #5616c4 80%);
@@ -49,6 +54,13 @@
       margin: 0 0.5rem;
       transition: background 0.2s, color 0.2s;
     }
+    .background {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      transform: scale(1.4);
+      z-index: -1;
+      
+    }
     .btn-secondary:hover {
       background: #9c6dff;
       color: #fff;
@@ -56,7 +68,7 @@
     /* --- HEADER --- */
     header {
       position: relative;
-      background-color: #19104c;
+      background-color: rgba(17,31,77,0.6);
       z-index: 2;
       display: flex;
       justify-content: space-between;
@@ -69,7 +81,7 @@
       align-items: center;
     }
     header .logo img {
-      height: 40px;
+      height: 50px;
       margin-right: 0.5rem;
     }
     header nav a {
@@ -79,7 +91,8 @@
       transition: color 0.2s;
     }
     header nav a:hover {
-      color: #fff;
+      color: #981c1c;
+
     }
     .btn-primary {
       background: linear-gradient(90deg, #f43131, #5616c4 80%);
@@ -103,11 +116,7 @@
       text-align: center;
       overflow: hidden;
     }
-    #tsparticles-owl {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0;
-    }
+    
     .hero-content {
       z-index: 2;
       position: relative;
@@ -118,6 +127,8 @@
       font-size: 3rem;
       margin-bottom: 1rem;
       font-weight: 700;
+      color: #fff;
+      
     }
     .hero p {
       font-size: 1.25rem;
@@ -205,35 +216,67 @@
       font-size: 0.98rem;
     }
     /* HOW IT WORKS */
-    .how-it-works {
-      max-width: 1000px;
-      margin: 4rem auto;
-      padding: 2rem 1rem;
-      text-align: center;
-    }
-    .timeline {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    .timeline-step {
-      flex: 1 1 160px;
-      background: #1e104c;
-      border-radius: 12px;
-      padding: 1.5rem 1rem;
-      margin: 0 0.5rem;
-      min-width: 160px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-    }
-    .timeline-step strong {
-      display: block;
-      font-size: 1.1rem;
-      color: #9c6dff;
-      margin-bottom: 0.5rem;
-    }
+   .how-it-works {
+  padding: 4rem 2rem;
+  background: #0c0926;
+  color: #fff;
+  text-align: center;
+}
+.how-it-works h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* diagram container */
+.diagram {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  height: 400px;
+}
+
+/* SVG beneath */
+.diagram-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* node boxes */
+.node {
+  position: absolute;
+  padding: 0.75rem 1rem;
+  background: rgba(30,16,76,0.9);
+  border: 2px solid #444;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+/* highlight the main recommendation box */
+.node.large {
+  background: linear-gradient(90deg, #3b82f6, #9333ea);
+  color: #fff;
+  font-weight: 600;
+  border-color: transparent;
+}
+
+/* Responsive shrink */
+@media (max-width: 768px) {
+  .diagram {
+    height: auto;
+    padding-bottom: 2rem;
+  }
+  .diagram-svg { display: none; }
+  .node {
+    position: static;
+    margin: 1rem auto;
+  }
+}
+
     /* USE CASES */
     .use-cases {
       max-width: 1200px;
@@ -392,195 +435,129 @@
       margin: 4rem 2rem;
     }
     .final-cta h2 { font-size: 2rem; margin-bottom: 1rem; }
-    /* Footer Base */
-.footer {
-  background: #1f2028;
-  color: #ccc;
-  font-family: 'Inter', sans-serif;
-  padding: 4rem 1rem 2rem;
-}
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+    /* Footer */
+/* footer container */
+.site-footer {
+  position: relative;
+  background: #0c0032;
+  overflow: hidden;
 }
 
-/* Sidebar */
-.footer-sidebar {
-  background: #000d45ef;
-  border-radius: 12px;
-  padding: 2rem;
-  flex: 1 1 280px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.footer-sidebar .section-label {
-  color: #e05b3c;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  margin-bottom: 1rem;
-}
-.sidebar-title {
-  font-size: 1.5rem;
-  line-height: 1.2;
-  margin-bottom: 2rem;
-  color: #f0f0f0;
-}
-.sidebar-title span {
-  display: block;
-  font-weight: 500;
-}
-.footer-form input {
+/* top wave */
+.footer-wave {
+  position: absolute;
+  top: -1px;
+  left: 0;
   width: 100%;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-  background: transparent;
-  border: 1px solid #444;
-  border-radius: 8px;
-  color: #fff;
+  line-height: 0;
 }
-.footer-form input::placeholder {
-  color: #777;
-}
-.footer-form button {
-  background: #e05b3c;
-  color: #fff;
-  padding: 0.75rem 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.2s;
-}
-.footer-form button:hover {
-  background: #c14a2f;
-}
-.privacy-link {
-  font-size: 0.75rem;
-  color: #555;
-  text-decoration: none;
-  margin-top: 2rem;
+.footer-wave svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 80px;
 }
 
-/* Main columns */
-.footer-main {
-  flex: 3 1 600px;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+/* newsletter */
+.newsletter {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: -24px auto 40px; /* pull it up over the wave */
+  padding: 32px 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(181, 85, 255, 0.068);
+  text-align: center;
 }
-.footer-columns {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
-  gap: 2rem;
+.newsletter :hover {
+  box-shadow: 0 20px 40px rgba(175, 0, 0, 0.409);
+  color: #fff5f5;
 }
-.footer-columns .section-label {
-  color: #e05b3c;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.75rem;
-  display: block;
+.newsletter h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
 }
-.footer-columns ul {
-  list-style: none;
-  padding: 0;
+.newsletter form {
+  display: inline-flex;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  overflow: hidden;
 }
-.footer-columns a {
-  display: block;
-  color: #ccc;
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-columns a:hover {
-  color: #fff;
-}
-.contact-info {
-  font-style: normal;
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
-.contact-info a {
-  color: #ccc;
-  text-decoration: none;
-}
-
-/* Subscription */
-.subscribe-col .subscribe-form {
-  display: flex;
-  gap: 0.5rem;
-}
-.subscribe-form input {
+.newsletter input {
   flex: 1;
-  padding: 0.75rem 1rem;
-  background: transparent;
-  border: 1px solid #444;
-  border-radius: 8px;
-  color: #fff;
-}
-.subscribe-form input::placeholder {
-  color: #777;
-}
-.subscribe-form button {
-  background: transparent;
+  padding: 12px 16px;
   border: none;
-  color: #e05b3c;
-  font-size: 1.25rem;
-  cursor: pointer;
-  transition: color 0.2s;
+  font-size: 1rem;
+  outline: none;
 }
-.subscribe-form button:hover {
-  color: #c14a2f;
+.newsletter button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0 24px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
-/* Footer Bottom */
-.footer-bottom {
+/* middle section */
+.footer-main {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
-  border-top: 1px solid #32333d;
-  padding-top: 2rem;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
 }
-.footer-logo img {
-  height: 40px;
+.footer-links,
+.footer-policy {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+}
+.footer-links a,
+.footer-policy a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1rem;
 }
 .social-icons {
   display: flex;
-  gap: 1rem;
+  gap: 24px;
 }
 .social-icons a {
-  color: #ccc;
-  background: transparent;
-  border: 1px solid #444;
-  border-radius: 50%;
-  width: 36px; height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, color 0.2s;
-}
-.social-icons a:hover {
-  background: #444;
-  color: #fff;
-}
-.footer-bottom p {
-  color: #777;
-  font-size: 0.75rem;
-  margin: 0.5rem 0 0;
+  color: #ffffff;
+  font-size: 1.25rem;
 }
 
-/* Utility */
-.sr-only {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap; border: 0;
+/* divider */
+hr {
+  border: none;
+  border-top: 1px solid #e1e1e1;
+  margin: 0;
+}
+
+/* bottom row */
+.footer-bottom {
+  max-width: 900px;
+  margin: 20px auto 40px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+.footer-logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #007bff;
+  border: 2px solid #007bff;
+  padding: 4px 12px;
+  border-radius: 4px;
+  letter-spacing: 2px;
 }
     @media (max-width: 900px) {
       .pillars, .features-grid, .pricing-grid, .use-cases-grid {
@@ -595,8 +572,7 @@
   </style>
 </head>
 <body>
-  <!--  particle background -->
-  <div id="particles-js"></div>
+  <spline-viewer class="background" url="https://prod.spline.design/VnZkt3TeJkms-5Jo/scene.splinecode"></spline-viewer>
   <!-- HEADER (moved to top) -->
   <header>
     <div class="logo">
@@ -606,7 +582,7 @@
       <a href="Home.html">Features</a>
       <a href="solution.html">Solutions</a>
       <a href="about.html">About Us</a>
-      <a href="reach us.html">Communication</a>
+      <a href="contact.html">Reach us</a>
     </nav>
     <a href="register.html">
       <button class="btn-primary">Get Started</button>
@@ -630,287 +606,318 @@
   </section>
 
   <!-- WHY SMARTFY (Three Pillars) -->
-  <section class="pillars">
-    <div class="pillar-card">
-      <div class="pillar-icon"><i class="fas fa-comments"></i></div>
-      <div class="pillar-title">Natural Language</div>
-      <div class="pillar-desc">Control devices using simple, human language—no coding required.</div>
-    </div>
-    <div class="pillar-card">
-      <div class="pillar-icon"><i class="fas fa-plug"></i></div>
-      <div class="pillar-title">Plug‑and‑Play SDKs</div>
-      <div class="pillar-desc">Integrate with your hardware in minutes using our developer-friendly SDKs.</div>
-    </div>
-    <div class="pillar-card">
-      <div class="pillar-icon"><i class="fas fa-cloud"></i></div>
-      <div class="pillar-title">Cloud & Alerts</div>
-      <div class="pillar-desc">Get real-time notifications and manage devices from anywhere.</div>
-    </div>
-  </section>
-
-  <!-- FEATURES GRID -->
-  <section class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">📟</div>
-      <div class="feature-title">Device Integration</div>
-      <div class="feature-desc">Seamlessly connect a wide range of IoT devices.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🧠</div>
-      <div class="feature-title">NLP & AI Processing</div>
-      <div class="feature-desc">Advanced natural language understanding for precise control.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔔</div>
-      <div class="feature-title">Real‑Time Notifications</div>
-      <div class="feature-desc">Instant alerts for device status and events.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🤖</div>
-      <div class="feature-title">Automation</div>
-      <div class="feature-desc">Automate routines and responses with AI-driven logic.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔒</div>
-      <div class="feature-title">Secure Cloud</div>
-      <div class="feature-desc">Enterprise-grade security for all your data and devices.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📊</div>
-      <div class="feature-title">Analytics</div>
-      <div class="feature-desc">Monitor usage and performance with real-time analytics.</div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="how-it-works">
-    <h2 class="gradient-text">How It Works</h2>
-    <div class="timeline">
-      <div class="timeline-step"><strong>1. Define Use Case</strong>Describe your automation goal.</div>
-      <div class="timeline-step"><strong>2. Integrate SDK</strong>Connect your device with our SDK.</div>
-      <div class="timeline-step"><strong>3. Train Commands</strong>Teach Smartfy your custom commands.</div>
-      <div class="timeline-step"><strong>4. Chat & Control</strong>Use natural language to operate devices.</div>
-      <div class="timeline-step"><strong>5. Analyze & Iterate</strong>Review data and optimize workflows.</div>
-    </div>
-  </section>
-
-  <!-- INDUSTRY USE CASES -->
-  <section class="use-cases">
-    <h2 class="gradient-text" style="text-align:center;">Industry Use Cases</h2>
-    <div class="use-cases-grid">
-      <div class="use-case-card">
-        <img src="images/Drone in Agriculture.jpg" class="use-case-img" alt="Agriculture">
-        <div class="use-case-title">Agriculture</div>
-        <div class="use-case-problem">Manual irrigation wastes water.</div>
-        <div class="use-case-solution">Automated, AI-driven irrigation saves resources.</div>
+  <container>
+    
+    
+    <p style="text-align:center;">Smartfy is designed to simplify your IoT experience. Our platform offers:</p>
+    <section class="pillars">
+      <div class="pillar-card">
+        <div class="pillar-icon"><i class="fas fa-comments"></i></div>
+        <div class="pillar-title">Natural Language</div>
+        <div class="pillar-desc">Control devices using simple, human language—no coding required.</div>
       </div>
-      <div class="use-case-card">
-        <img src="images/Automated Production Arm.jpg" class="use-case-img" alt="Manufacturing">
-        <div class="use-case-title">Manufacturing</div>
-        <div class="use-case-problem">Unexpected downtime disrupts production.</div>
-        <div class="use-case-solution">Smart alerts enable rapid response and less downtime.</div>
+      <div class="pillar-card">
+        <div class="pillar-icon"><i class="fas fa-plug"></i></div>
+        <div class="pillar-title">Plug‑and‑Play SDKs</div>
+        <div class="pillar-desc">Integrate with your hardware in minutes using our developer-friendly SDKs.</div>
       </div>
-      <div class="use-case-card">
-        <img src="images/Building A Smart City_ 10 Big Priorities Government Leaders Should Focus On.jpg" class="use-case-img" alt="Smart Buildings">
-        <div class="use-case-title">Smart Buildings</div>
-        <div class="use-case-problem">Energy usage is hard to track.</div>
-        <div class="use-case-solution">Monitor and optimize with real-time analytics.</div>
+      <div class="pillar-card">
+        <div class="pillar-icon"><i class="fas fa-cloud"></i></div>
+        <div class="pillar-title">Cloud & Alerts</div>
+        <div class="pillar-desc">Get real-time notifications and manage devices from anywhere.</div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ARCHITECTURE DIAGRAM -->
-  <section class="architecture">
-    <h2>Architecture Overview</h2>
-    <div class="architecture-diagram">
-      <strong>Devices</strong> → <strong>Chatbot Engine</strong> → <strong>Cloud</strong> → <strong>Notifications</strong>
-      <br><br>
-      <img src="images/architecture-diagram.png" alt="Architecture Diagram" style="width:100%;max-width:600px;margin:1rem auto 0;display:block;">
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testimonials">
-    <div class="testimonial-card">
-      “Smartfy helped us reduce downtime and improve efficiency across our factory floor.”
-      <div class="testimonial-author">— Jane Doe, CTO @ Acme Manufacturing</div>
-    </div>
-    <div class="testimonial-card">
-      “The natural language control is a game changer for our smart building projects.”
-      <div class="testimonial-author">— John Smith, Facility Manager</div>
-    </div>
-  </section>
-
-   
-           
-  <!-- FAQ ACCORDION -->
-  <section class="faq">
-    <h2 class="gradient-text">Frequently Asked Questions</h2>
-    <div class="faq-item" onclick="this.classList.toggle('open')">
-      <div class="faq-question">Which chat channels does Smartfy support?</div>
-      <div class="faq-answer">Smartfy supports WhatsApp, Telegram, web chat, and more.</div>
-    </div>
-    <div class="faq-item" onclick="this.classList.toggle('open')">
-      <div class="faq-question">How secure is my data?</div>
-      <div class="faq-answer">We use enterprise-grade encryption and best practices for all data and device connections.</div>
-    </div>
-    <div class="faq-item" onclick="this.classList.toggle('open')">
-      <div class="faq-question">Can I integrate with my existing devices?</div>
-      <div class="faq-answer">Yes! Our SDKs are designed for easy integration with a wide range of hardware.</div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="final-cta">
-    <h2>Ready to simplify your IoT?</h2>
-    <button class="btn-primary">Book a Demo</button>
-    <button class="btn-secondary">Start Free Trial</button>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-container">
-  
-      <!-- Left sidebar: feedback form -->
-      <div class="footer-sidebar">
-        <small class="section-label">FEEDBACK</small>
-        <h2 class="sidebar-title">Seeking personalized support?<br><span>Request a call from our team</span></h2>
-  
-        <form class="footer-form">
-          <label for="name" class="sr-only">Your Name</label>
-          <input type="text" id="name" placeholder="Your Name" required>
-  
-          <label for="phone" class="sr-only">Phone Number</label>
-          <input type="tel" id="phone" placeholder="Phone Number" required>
-  
-          <button type="submit">Send a request</button>
-        </form>
-  
-        <a href="#" class="privacy-link">Privacy</a>
+    <!-- FEATURES GRID -->
+    <section class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📟</div>
+        <div class="feature-title">Device Integration</div>
+        <div class="feature-desc">Seamlessly connect a wide range of IoT devices.</div>
       </div>
-  
-      <!-- Right main: links, contact, subscribe, social -->
-      <div class="footer-main">
-        <div class="footer-columns">
-          <div class="col">
-            <small class="section-label">INFO</small>
-            <ul>
-              <li><a href="Home.html">features</a></li>
-              <li><a href="how it work.html">how it works</a></li>
-              <li><a href="solution.html">solutions</a></li>
-              <li><a href="reach us.html">contact us</a></li>
-              
-            </ul>
-          </div>
-          <div class="col">
-            <small class="section-label">ABOUT US</small>
-            <ul>
-              <li><a href="#">Gallery</a></li>
-              <li><a href="#">Technologies</a></li>
-              <li><a href="#">Contacts</a></li>
-            </ul>
-          </div>
-          <div class="col">
-            <small class="section-label">CONTACT US</small>
-            <address class="contact-info">
-              +255 752607104<br>
-              <a href="gidionmlay5@gmail.com">gidionmlay5@gmail.com</a><br>
-              Arusha, Tanzania
-            </address>
-          </div>
-          <div class="col subscribe-col">
-            <small class="section-label">SUBSCRIPTION</small>
-            <form class="subscribe-form">
-              <label for="email" class="sr-only">E-mail</label>
-              <input type="email" id="email" placeholder="E-mail" required>
-              <button type="submit" aria-label="Subscribe">›</button>
-            </form>
-          </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <div class="feature-title">NLP & AI Processing</div>
+        <div class="feature-desc">Advanced natural language understanding for precise control.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-title">Real‑Time Notifications</div>
+        <div class="feature-desc">Instant alerts for device status and events.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">Automation</div>
+        <div class="feature-desc">Automate routines and responses with AI-driven logic.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">Secure Cloud</div>
+        <div class="feature-desc">Enterprise-grade security for all your data and devices.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Analytics</div>
+        <div class="feature-desc">Monitor usage and performance with real-time analytics.</div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="how-it-works">
+  <h2>How It Works</h2>
+
+  <div class="diagram">
+    <!-- SVG arrows behind -->
+    <svg class="diagram-svg" viewBox="0 0 900 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#3b82f6" />
+          <stop offset="100%" stop-color="#9333ea" />
+        </linearGradient>
+        <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3"
+                orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L6,3 z" fill="#fff"/>
+        </marker>
+      </defs>
+
+      <!-- User → API -->
+      <path d="M100,200 H250"
+            stroke="url(#grad)" stroke-width="3" fill="none"
+            marker-end="url(#arrow)" />
+
+      <!-- API → Event Streaming -->
+      <path d="M300,200 C350,200 380,100 450,100"
+            stroke="url(#grad)" stroke-width="3" fill="none"
+            marker-end="url(#arrow)" />
+
+      <!-- Event Streaming → Recommendation -->
+      <path d="M550,100 H700"
+            stroke="url(#grad)" stroke-width="3" fill="none"
+            marker-end="url(#arrow)" />
+
+      <!-- Recommendation → Inferences -->
+      <path d="M750,100 L750,300"
+            stroke="url(#grad)" stroke-width="3" fill="none"
+            marker-end="url(#arrow)" />
+
+      <!-- Inferences → Data Warehouse -->
+      <path d="M750,300 H600"
+            stroke="url(#grad)" stroke-width="3" fill="none"
+            marker-end="url(#arrow)" />
+
+      <!-- Data Warehouse → Model Training -->
+      <path d="M550,300 C500,300 480,380 350,380"
+            stroke="url(#grad)" stroke-width="3" fill="none"
+            marker-end="url(#arrow)" />
+
+      <!-- Model Training → API (back) -->
+      <path d="M300,380 C400,380 400,250 250,250"
+            stroke="url(#grad)" stroke-width="3" fill="none"
+            marker-end="url(#arrow)" />
+    </svg>
+
+    <!-- Nodes on top -->
+    <div class="node" style="left:  80px; top: 180px;">User</div>
+    <div class="node" style="left: 220px; top: 170px;">API</div>
+    <div class="node" style="left: 440px; top:  80px;">Event Streaming</div>
+    <div class="node large" style="left: 680px; top:  80px;">AI Recommendation</div>
+    <div class="node" style="left: 720px; top: 280px;">Real-Time Inferences</div>
+    <div class="node" style="left: 550px; top: 280px;">Data Warehouse</div>
+    <div class="node" style="left: 330px; top: 360px;">Model Training</div>
+  </div>
+</section>
+
+    <!-- INDUSTRY USE CASES -->
+    <section class="use-cases">
+      <h2 class="gradient-text" style="text-align:center;">Industry Use Cases</h2>
+      <div class="use-cases-grid">
+        <div class="use-case-card">
+          <img src="images/Drone in Agriculture.jpg" class="use-case-img" alt="Agriculture">
+          <div class="use-case-title">Agriculture</div>
+          <div class="use-case-problem">Manual irrigation wastes water.</div>
+          <div class="use-case-solution">Automated, AI-driven irrigation saves resources.</div>
         </div>
-  
-        <!-- Logo and socials -->
-        <div class="footer-bottom">
-          <div class="footer-logo">
-            <img src="images/smartfy_icon.png" alt="Company Logo">
-          </div>
-          <div class="social-icons">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          </div>
-          <p class="copyright">
-            © 2025 Smartfy Company — Copyright
-          </p>
+        <div class="use-case-card">
+          <img src="images/Automated Production Arm.jpg" class="use-case-img" alt="Manufacturing">
+          <div class="use-case-title">Manufacturing</div>
+          <div class="use-case-problem">Unexpected downtime disrupts production.</div>
+          <div class="use-case-solution">Smart alerts enable rapid response and less downtime.</div>
+        </div>
+        <div class="use-case-card">
+          <img src="images/Building A Smart City_ 10 Big Priorities Government Leaders Should Focus On.jpg" class="use-case-img" alt="Smart Buildings">
+          <div class="use-case-title">Smart Buildings</div>
+          <div class="use-case-problem">Energy usage is hard to track.</div>
+          <div class="use-case-solution">Monitor and optimize with real-time analytics.</div>
         </div>
       </div>
-  
+    </section>
+
+    <!-- ARCHITECTURE DIAGRAM -->
+    <section class="architecture">
+      <h2>Architecture Overview</h2>
+      <div class="architecture-diagram">
+        <strong>Devices</strong> → <strong>Chatbot Engine</strong> → <strong>Cloud</strong> → <strong>Notifications</strong>
+        <br><br>
+        <img src="images/architecture-diagram.png" alt="Architecture Diagram" style="width:100%;max-width:600px;margin:1rem auto 0;display:block;">
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+      <div class="testimonial-card">
+        "Smartfy helped us reduce downtime and improve efficiency across our factory floor."
+        <div class="testimonial-author">— Jane Doe, CTO @ Acme Manufacturing</div>
+      </div>
+      <div class="testimonial-card">
+        "The natural language control is a game changer for our smart building projects."
+        <div class="testimonial-author">— John Smith, Facility Manager</div>
+      </div>
+    </section>
+
+    <!-- FAQ ACCORDION -->
+    <section class="faq">
+      <h2 class="gradient-text">Frequently Asked Questions</h2>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-question">Which chat channels does Smartfy support?</div>
+        <div class="faq-answer">Smartfy supports WhatsApp, Telegram, web chat, and more.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-question">How secure is my data?</div>
+        <div class="faq-answer">We use enterprise-grade encryption and best practices for all data and device connections.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-question">Can I integrate with my existing devices?</div>
+        <div class="faq-answer">Yes! Our SDKs are designed for easy integration with a wide range of hardware.</div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+      <h2>Ready to simplify your IoT?</h2>
+      <button class="btn-primary">Book a Demo</button>
+      <button class="btn-secondary">Start Free Trial</button>
+    </section>
+  </container>
     </div>
+    
+    
+<!-- footer section -->
+  <footer class="site-footer">
+    <!-- top wave -->
+    <div class="footer-wave">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0 C600,120 600,120 1200,0 L1200,120 L0,120 Z" fill="#0c0032" />
+      </svg>
+    </div>
+
+    <!-- newsletter signup -->
+    <div class="newsletter">
+      <h2>Subscribe Newsletters</h2>
+      <form>
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit">Subscribe Now</button>
+      </form>
+    </div>
+
+    <!-- middle links + socials -->
+    <div class="footer-main">
+      <ul class="footer-links">
+        <li><a href="about.html">About us</a></li>
+        <li><a href="Home.html">Discover</a></li>
+        <li><a href="solution.html">Explore</a></li>
+        <li><a href="register.html">Books</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Vimeo"><i class="fab fa-vimeo-v"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- bottom row -->
+    <div class="footer-bottom">
+      <p>© 2025 Smartfy Technologies. All rights reserved.</p>
+      <div class="footer-logo">
+        
+        <img src="images/smartfy_icon.png" alt="Smartfy Logo" style="height: 3rem;">
+      </div>
+      <ul class="footer-policy">
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>  
   </footer>
-  <!-- particles.js library -->
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', function() {
+        this.classList.toggle('open');
+      });
+    });
+    // tsParticles owl effect
+    window.addEventListener('DOMContentLoaded', () => {
+      tsParticles.load('tsparticles-owl', {
+        background: { color: 'transparent' },
+        fpsLimit: 60,
+        particles: {
+          number: { value: 120, density: { enable: true, area: 800 } },
+          color: { value: ['#00eaff', '#00bfff', '#1ec8ff', '#aaf6ff'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.7, random: true },
+          size: { value: 2.5, random: { enable: true, minimumValue: 1 } },
+          links: {
+            enable: true,
+            distance: 120,
+            color: '#00eaff',
+            opacity: 0.5,
+            width: 1.2,
+            triangles: { enable: true, color: '#00eaff', opacity: 0.12 }
+          },
+          move: {
+            enable: true,
+            speed: 1.2,
+            direction: 'none',
+            random: true,
+            straight: false,
+            outModes: { default: 'out' }
+          },
+          glow: {
+            enable: true,
+            color: '#00eaff',
+            radius: 10,
+            intensity: 0.5
+          }
+        },
+        detectRetina: true
+      });
+    });
+  </script>
+   <!-- particles.js library -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <!-- init config -->
   <script>
-    particlesJS('particles-js', {
-      "particles": {
-        "number": {
-          "value": 60,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: '#9c6dff' },
+          shape: { type: 'circle' },
+          opacity: { value: 0.5, random: false },
+          size: { value: 3, random: true },
+          line_linked: { enable: true, distance: 150, color: '#9c6dff', opacity: 0.4, width: 1 },
+          move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
         },
-        "color": {
-          "value": "#ffffff"
+        interactivity: {
+          detect_on: 'canvas',
+          events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+          modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
         },
-        "shape": {
-          "type": "circle"
-        },
-        "opacity": {
-          "value": 0.6,
-          "random": false,
-          "anim": {
-            "enable": false
-          }
-        },
-        "size": {
-          "value": 3,
-          "random": true,
-          "anim": {
-            "enable": false
-          }
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#ffffff",
-          "opacity": 0.3,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 1.5,
-          "direction": "none",
-          "random": false,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false
-        }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": {
-            "enable": false
-          },
-          "onclick": {
-            "enable": false
-          },
-          "resize": true
-        }
-      },
-      "retina_detect": true
+        retina_detect: true
+      });
     });
   </script>
 </body>

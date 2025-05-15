@@ -7,15 +7,16 @@
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #5616c4;
+      --primary: #0b0070;
       --secondary: #9c6dff;
       --accent: #f43131;
       --orange: #ff7c1c;
-      --background: #000;
+      --background: #000515;
+      --background-dark: #393838;
       --card-bg: #18171d;
       --input-bg: transparent;
       --input-border: #444;
-      --input-focus: #9c6dff;
+      --input-focus: #3300ff;
       --text: #fff;
       --text-muted: #ccc;
     }
@@ -49,7 +50,7 @@
     .bg-purple {
       width: 350px; height: 350px;
       left: -120px; top: 80px;
-      background: radial-gradient(circle at 60% 40%, #9c6dff 0%, #5616c4 80%);
+      background: radial-gradient(circle at 60% 40%, #260078 0%, #5616c4 80%);
     }
     .bg-orange {
       width: 260px; height: 260px;
@@ -72,9 +73,9 @@
     .login-card {
       position: relative;
       z-index: 1;
-      background: var(--card-bg);
+      background: rgba(0, 0, 0, 0.717);
       border-radius: 32px;
-      box-shadow: 0 8px 40px 0 rgba(0,0,0,0.45);
+      box-shadow: 0 8px 40px 0 rgba(40, 40, 40, 0.059);
       width: 100%;
       max-width: 400px;
       padding: 3rem 2.5rem 2rem 2.5rem;
@@ -119,7 +120,7 @@
     .login-card input[type='text']:focus,
     .login-card input[type='password']:focus {
       border-color: var(--input-focus);
-      box-shadow: 0 0 0 2px #9c6dff33;
+      box-shadow: 0 0 0 2px #ffffff33;
     }
     .remember-row {
       display: flex;
@@ -132,6 +133,11 @@
       width: 1rem;
       height: 1rem;
       margin: 0;
+    }
+    h2 {
+      margin: 0;
+      text-align: center;
+      color: rgba(113, 48, 48, 0.947);
     }
     .remember-row label {
       margin: 0;
@@ -147,16 +153,17 @@
       border-radius: 8px;
       font-size: 1.1rem;
       font-weight: 600;
-      background: linear-gradient(90deg, #9c6dff 0%, #f43131 100%);
+      background: linear-gradient(90deg, #cf0909 0%, #bc0e0e 100%);
       color: #fff;
       margin-bottom: 1.2rem;
       cursor: pointer;
       transition: box-shadow 0.2s, transform 0.2s;
-      box-shadow: 0 2px 12px #5616c455;
+      box-shadow: 0 2px 12px #00000055;
     }
     .login-btn:hover {
       transform: translateY(-2px) scale(1.01);
       box-shadow: 0 6px 24px #5616c488;
+      background-color: #ffffff;
     }
     .login-card .forgot {
       color: var(--text-muted);
@@ -217,8 +224,8 @@
       <input type="checkbox" id="remember" checked>
       <label for="remember">Remember me</label>
     </div>
-    <button class="login-btn" type="submit">Login</button>
-    <a href="#" class="forgot">Forgot password?</a>
+    <a href="#" class="forgot"><button class="login-btn" type="submit">Login</button></a>
+    <a href="forgot password page.html" class="forgot">Forgot password?</a>
     <div class="signup-link">
       Don't have an account?
       <a href="register.html">Signup</a>
